@@ -22,11 +22,17 @@ namespace MathNetODE
         double MaxX;
         double MaxY;
         bool isWrite = false;
+        int countOfPoint = 1;
+        double rPrev = -1;
+        double rNext = -1;
+        double rCurrent = -1;
+        List<double> deltas = new List<double>();
 
 
         public Form1()
         {
             InitializeComponent();
+            radioButton1.Enabled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -43,10 +49,15 @@ namespace MathNetODE
                 MainChart.Series[0].ChartType = SeriesChartType.FastPoint;
                 if (!isWrite)
                 {
-                    for (double r = 0.1; r < 1; r += step)
-                    {
-                        DrawSolutionForFeghen(x0, N, r);
+                    rPrev = -1;
+                    rNext = -1;
+                    rCurrent = -1;
+                    countOfPoint = 1;
+                    for (double r = 0.5; r < 1; r += step)
+                    {                        
+                        DrawSolutionForFeghen(x0, N, r, step);
                     }
+                    MessageBox.Show("delta = " + ((rCurrent - rPrev) / (rNext - rCurrent)).ToString());
                 }
                 else
                 {
@@ -56,16 +67,6 @@ namespace MathNetODE
                         DrawSolutionForFeghen(x0, N, r, writer);
                     }
                     writer.Close();
-                }
-            }
-            if (radioButton2.Checked)
-            {
-                if (!isWrite)
-                {
-                    for (double a = 0.1; a < 1; a += step)
-                    {
-                        DrawSolutionForHenon(x0, y0, N, a);
-                    }
                 }
             }
             if (radioButton3.Checked)
@@ -80,7 +81,7 @@ namespace MathNetODE
 
 
 
-        public void DrawSolutionForFeghen(double x0, double N, double r)
+        public void DrawSolutionForFeghen(double x0, double N, double r, double step)
         {
             double xPrevious;
             double xCurrent = x0;
@@ -96,8 +97,32 @@ namespace MathNetODE
                 xCurrent = 4 * r * xPrevious * (1 - xPrevious);
                 Points[i] = xCurrent;
             }
-            var EPoints = Points.Distinct();
-            foreach (double point in EPoints)
+            var EPoints = Points.Distinct().ToArray();
+            for(int i = 0; i< EPoints.Length; i++)
+            {
+                EPoints[i] = Convert.ToDouble(EPoints[i].ToString("G6")); //G2 - 0.001 //G6 - 0.0001 //
+            }
+            EPoints = EPoints.Distinct().ToArray();
+            if (EPoints.Count() > countOfPoint)
+            {
+                countOfPoint *= 2;
+                bool isAlreadyWrite = false;
+                if(rPrev == -1)
+                {
+                    rPrev = r;
+                    isAlreadyWrite = true;
+                }
+                if ((rCurrent == -1) && (rPrev != -1) && !isAlreadyWrite)
+                {
+                    rCurrent = r;
+                    isAlreadyWrite = true;
+                }
+                if ((rNext == -1) && (rCurrent != -1) && (rPrev != -1) && !isAlreadyWrite)
+                {
+                    rNext = r;
+                }
+            }            
+                foreach (double point in EPoints)
             {
                 MainChart.Series[0].Points.AddXY(r, point);
             }
