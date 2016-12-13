@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -47,6 +48,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.MainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainChart)).BeginInit();
             this.SuspendLayout();
@@ -54,6 +57,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.radioButton3);
+            this.panel1.Controls.Add(this.textBox5);
             this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBox4);
@@ -264,6 +268,19 @@
             this.MainChart.Size = new System.Drawing.Size(1018, 695);
             this.MainChart.TabIndex = 0;
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(7, 506);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(84, 20);
+            this.textBox5.TabIndex = 20;
+            this.textBox5.Text = "G6";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,6 +315,8 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

@@ -100,7 +100,7 @@ namespace MathNetODE
             var EPoints = Points.Distinct().ToArray();
             for(int i = 0; i< EPoints.Length; i++)
             {
-                EPoints[i] = Convert.ToDouble(EPoints[i].ToString("G6")); //G2 - 0.001 //G6 - 0.0001 //
+                EPoints[i] = Convert.ToDouble(EPoints[i].ToString(textBox5.Text)); //G2 - 0.001 //G6 - 0.0001 //
             }
             EPoints = EPoints.Distinct().ToArray();
             if (EPoints.Count() > countOfPoint)
